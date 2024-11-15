@@ -1,9 +1,13 @@
 <script>
 import BenderStatistics from "./components/BenderStatistics.vue";
+import AllFavoritesButton from "./components/AllFavoritesButton.vue";
+import BaseLayout from "./components/BaseLayout.vue";
 
 export default {
   components: {
+    BaseLayout,
     BenderStatistics,
+    AllFavoritesButton,
   },
   data: () => ({
     newCharacter: {
@@ -38,11 +42,20 @@ export default {
     favoriteCharacter(character) {
       this.favoriteList.push(character);
     },
+    favoriseEveryone() {
+      this.characterList.forEach((character) => {
+        this.favoriteList.push(character);
+      });
+    },
   },
 };
 </script>
 
 <template>
+  <BaseLayout>
+    <template v-slot:first>My random slot shit 1</template>
+    <template v-slot:second>My random slot shit 2</template>
+  </BaseLayout>
   <BenderStatistics :characters="characterList" />
   <h2>Characters</h2>
   <p v-if="characterList.length === 0">There are no characters</p>
@@ -57,6 +70,7 @@ export default {
   </ul>
   <p v-else>There are odd characters!</p>
   <h2>Favorite Characters</h2>
+  <AllFavoritesButton @favoriteEveryone="favoriseEveryone" />
   <ul v-if="favoriteList.length > 0">
     <li
       v-for="(character, index) in favoriteList"
