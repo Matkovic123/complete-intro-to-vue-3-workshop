@@ -1,4 +1,31 @@
-<script></script>
+<script>
+import UsersPage from "./UsersPage.vue";
+import TodosPage from "./TodosPage.vue";
+const picks = ["users", "todos"];
+export default {
+  components: {
+    UsersPage,
+    TodosPage,
+  },
+  data: () => ({
+    currentPick: picks[1],
+  }),
+  methods: {
+    changeData() {
+      if (this.currentPick === picks[1]) {
+        this.currentPick = picks[0];
+      } else {
+        this.currentPick = picks[1];
+      }
+    },
+  },
+  computed: {
+    componentName() {
+      return this.currentPick + "-page";
+    },
+  },
+};
+</script>
 
 <template>
   <main>
@@ -7,6 +34,10 @@
       This is a place to manage various things: todos, users, posts, etc.
       Whatever your mind desires!
     </p>
+    <br />
+    <button @click="changeData">Change data</button>
+    <h2>Available {{ currentPick }} data:</h2>
+    <component :is="componentName"></component>
   </main>
 </template>
 
