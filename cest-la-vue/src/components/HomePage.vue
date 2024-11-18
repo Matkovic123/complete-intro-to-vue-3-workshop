@@ -18,6 +18,9 @@ export default {
         this.currentPick = picks[1];
       }
     },
+    fireAlert(payload) {
+      alert(payload.text);
+    },
   },
   computed: {
     componentName() {
@@ -39,7 +42,12 @@ export default {
     <h2>Available {{ currentPick }} data:</h2>
     <Suspense>
       <template v-slot:fallback> Loading... </template>
-      <component :is="componentName"></component>
+      <component
+        @myEmit="fireAlert"
+        :is="componentName"
+        myProp="IADSEHFIAHSID"
+        anotherProp="69"
+      ></component>
     </Suspense>
   </main>
 </template>
