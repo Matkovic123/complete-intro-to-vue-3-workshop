@@ -8,7 +8,7 @@ export default {
     TodosPage,
   },
   data: () => ({
-    currentPick: picks[1],
+    currentPick: picks[0],
   }),
   methods: {
     changeData() {
@@ -37,7 +37,10 @@ export default {
     <br />
     <button @click="changeData">Change data</button>
     <h2>Available {{ currentPick }} data:</h2>
-    <component :is="componentName"></component>
+    <Suspense>
+      <template v-slot:fallback> Loading... </template>
+      <component :is="componentName"></component>
+    </Suspense>
   </main>
 </template>
 

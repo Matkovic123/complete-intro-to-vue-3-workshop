@@ -1,20 +1,24 @@
 <script>
+import { reactive } from "vue";
+
 export default {
-  created() {
-    this.fetchData();
-  },
-  data: () => ({
-    users: [],
-  }),
-  methods: {
-    async fetchData() {
+  async setup() {
+    const state = reactive({
+      userList: [],
+    });
+
+    const fetchData = async () => {
       const rawData = await fetch("https://jsonplaceholder.typicode.com/users");
       const jsonData = await rawData.json();
-      this.users = jsonData.slice(0, 10);
-    },
+      const result = jsonData.slice(0, 10);
+      return result;
+    };
+    state.userList = await fetchData();
+
+    return { state };
   },
 };
 </script>
 <template>
-  <pre>{{ this.users }}</pre>
+  <pre>{{ this.state.userList }}</pre>
 </template>
