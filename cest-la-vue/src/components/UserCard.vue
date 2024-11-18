@@ -6,16 +6,21 @@ export default {
       required: true,
     },
   },
+  data: () => ({
+    bkgColour: "black",
+  }),
 };
 </script>
 
 <template>
-  <li class="user-card">{{ user.name }}: {{ user.website }}</li>
+  <input type="color" v-model="bkgColour" />
+  <li :class="$style.userCard">{{ user.name }}: {{ user.website }}</li>
 </template>
 
-<style>
-.user-card {
+<style module>
+.userCard {
   border: 2px solid #222;
   padding: 10px;
+  background-color: v-bind(bkgColour);
 }
 </style>
