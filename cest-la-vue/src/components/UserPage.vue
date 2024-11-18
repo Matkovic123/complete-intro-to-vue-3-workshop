@@ -1,6 +1,7 @@
 <script setup>
 import UserCard from "./UserCard.vue";
 import { defineProps, reactive } from "vue";
+import { counter } from "../composable/useState";
 
 defineProps({
   title: {
@@ -16,19 +17,26 @@ const state = reactive({
 });
 
 async function fetchUsers() {
-  const response = await fetch(
-    "https://jsonplaceholder.typicode.com/users"
-  ).then((response) => response.json());
+  const response = await fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((json) => json.slice(0, counter.value));
 
   return response;
 }
 
 state.userList = await fetchUsers();
+
+const fetchMoreUsers = async () => {
+  counter.value++;
+  const res = await fetchUsers();
+  state.userList = res;
+};
 </script>
 
 <template>
   <main>
     <h1>{{ title }}</h1>
+    <button @click="fetchMoreUsers">Get more</button>
     <ul>
       <UserCard
         v-for="user in state.userList"
