@@ -2,12 +2,16 @@
 import HomePage from "./components/HomePage.vue";
 import LoginPage from "./components/LoginPage.vue";
 import UserPage from "./components/UserPage.vue";
+import CustomView from "./views/CustomView.vue";
+import HomeView from "./views/HomeView.vue";
 
 export default {
   components: {
     HomePage,
     LoginPage,
     UserPage,
+    HomeView,
+    CustomView,
   },
   data: () => ({
     currentPage: "User",
@@ -37,14 +41,13 @@ export default {
       <img src="@/assets/vue-heart.png" width="30" />C'est La Vue
     </span>
     <nav class="nav">
-      <a href="#" @click.prevent="showHomePage">Home</a>
-      <a href="#" @click.prevent="showLoginPage">Login</a>
-      <a href="#" @click.prevent="showUserPage">User</a>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/custom">Custom</RouterLink>
     </nav>
   </header>
 
   <Suspense>
-    <component :is="renderPage" :key="renderPage" />
+    <router-view />
 
     <template v-slot:fallback> Data is loading... </template>
   </Suspense>

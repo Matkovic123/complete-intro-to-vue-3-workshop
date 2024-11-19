@@ -14,11 +14,11 @@ export default {
 
 <template>
   <input type="color" v-model="bkgColour" />
-  <li :class="$style.userCard">{{ user.name }}: {{ user.website }}</li>
+  <li :class="$style['user-card']">{{ user.name }}: {{ user.website }}</li>
 </template>
 
 <style module>
-.userCard {
+.user-card {
   border: 2px solid #222;
   padding: 10px;
   background-color: v-bind(bkgColour);
