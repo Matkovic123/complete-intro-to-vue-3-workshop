@@ -1,10 +1,12 @@
 <script setup>
 import { userList } from "../composables/useUserStore";
 import { computed } from "vue";
+import { useItemTypeStore } from "../stores/itemTypeStore";
 
 const shortUserList = computed(() => {
   return userList.value.splice(0, 5);
 });
+const itemTypeStore = useItemTypeStore();
 </script>
 
 <template>
@@ -15,8 +17,10 @@ const shortUserList = computed(() => {
       Whatever your mind desires!
     </p>
     <hr />
+    <p>Pinia data: {{ itemTypeStore.name }}</p>
+    <button @click="itemTypeStore.rename">Pinia button</button>
     <ul>
-      <li v-for="user in shortUserList">
+      <li v-for="user in shortUserList" :key="user.name">
         {{ user.name }}
       </li>
     </ul>
